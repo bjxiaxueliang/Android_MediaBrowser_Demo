@@ -1,7 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--歌曲图片-->
+    <ImageView
+        android:id="@+id/album_art_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/album_jazz_blues" />
 
-</LinearLayout>
+
+    <!--歌曲标题 描述-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#a0ffffff"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <!--歌曲标题-->
+        <TextView
+            android:id="@+id/song_title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            tools:text="Song Title" />
+
+        <!--歌曲描述-->
+        <TextView
+            android:id="@+id/song_artist_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            tools:text="Song Artist" />
+
+    </LinearLayout>
+
+
+    <!--播放 控制器-->
+    <LinearLayout
+        android:id="@+id/control_bg_layout"
+        android:layout_width="192dp"
+        android:layout_height="192dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/ic_play_pause_toggle"
+        android:orientation="horizontal">
+
+        <!--上一首-->
+        <Button
+            android:id="@+id/previous_btn"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:text="" />
+
+        <!--播放-->
+        <Button
+            android:id="@+id/play_btn"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:text="" />
+
+
+        <!--下一首-->
+        <Button
+            android:id="@+id/next_btn"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:text="" />
+
+
+    </LinearLayout>
+
+
+    <!--进度条-->
+    <com.xiaxl.music.widget.MediaSeekBar
+        android:id="@+id/seekbar_audio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp" />
+
+</RelativeLayout>
