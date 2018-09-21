@@ -33,10 +33,10 @@ https://blog.csdn.net/xiaxl/article/details/78780691
 ##MediaSession架构
 来自https://github.com/kevinshine/android-UniversalMusicPlayer-Analysis
 的MediaSession架构图
-![这里写图片描述](http://img.blog.csdn.net/20180208175044161?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYWl3dXNoZW5n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://raw.githubusercontent.com/xiaxveliang/Android_MediaBrowser_Demo/master/image/0001.png)
 
 ## 官方demo android-MediaBrowserService的架构图
-![这里写图片描述](http://img.blog.csdn.net/20171212115327066?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveGlheGw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](https://raw.githubusercontent.com/xiaxveliang/Android_MediaBrowser_Demo/master/image/0002.png)
 
 ## 源码阅读，可以参考我的注释demo
 
