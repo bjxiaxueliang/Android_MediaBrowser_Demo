@@ -17,6 +17,8 @@
 package com.mediabrowser.xiaxl.service.notification;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -25,15 +27,16 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.RemoteException;
 import android.support.annotation.NonNull;
-import android.support.v4.app.NotificationManagerCompat;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.media.MediaDescriptionCompat;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
-import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import com.mediabrowser.xiaxl.R;
@@ -47,6 +50,8 @@ import com.mediabrowser.xiaxl.service.utils.ResourceUtil;
  */
 public class MediaNotificationManager extends BroadcastReceiver {
     private static final String TAG = "MediaNotification";
+
+    private static final String CHANNEL_ID = "com.example.android.uamp.MUSIC_CHANNEL_ID";
 
     // notification id
     private static final int NOTIFICATION_ID = 412;
@@ -95,7 +100,7 @@ public class MediaNotificationManager extends BroadcastReceiver {
     /**
      * 获取NotificationManager
      */
-    private final NotificationManagerCompat mNotificationManager;
+    private final NotificationManager mNotificationManager;
 
 
     /**
@@ -122,7 +127,7 @@ public class MediaNotificationManager extends BroadcastReceiver {
          *
          */
         // NotificationManagerCompat
-        mNotificationManager = NotificationManagerCompat.from(service);
+        mNotificationManager = (NotificationManager) mMusicService.getSystemService(Context.NOTIFICATION_SERVICE);
 
         /**
          *
@@ -307,8 +312,16 @@ public class MediaNotificationManager extends BroadcastReceiver {
         if (mMediaMetadata == null || mPlaybackState == null) {
             return null;
         }
-        //
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(mMusicService);
+
+
+        // Notification channels are only supported on Android O+.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createNotificationChannel();
+        }
+
+
+        final NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(mMusicService, CHANNEL_ID);
         // 上一曲
         notificationBuilder.addAction(R.drawable.ic_skip_previous_white_36dp,
                 mMusicService.getString(R.string.label_previous), mPreviousIntent);
@@ -337,7 +350,7 @@ public class MediaNotificationManager extends BroadcastReceiver {
         }
 
         notificationBuilder
-                .setStyle(new NotificationCompat.MediaStyle()
+                .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
                         .setShowActionsInCompactView(
                                 new int[]{0, 1, 2})
                         .setMediaSession(mSessionToken))
@@ -444,5 +457,23 @@ public class MediaNotificationManager extends BroadcastReceiver {
             }
         }
     };
+
+
+    /**
+     * Creates Notification Channel. This is required in Android O+ to display notifications.
+     */
+    @RequiresApi(Build.VERSION_CODES.O)
+    private void createNotificationChannel() {
+        if (mNotificationManager.getNotificationChannel(CHANNEL_ID) == null) {
+            NotificationChannel notificationChannel =
+                    new NotificationChannel(CHANNEL_ID,
+                            "UAMP_Channel_ID",
+                            NotificationManager.IMPORTANCE_LOW);
+
+            notificationChannel.setDescription("Channel ID for UAMP");
+
+            mNotificationManager.createNotificationChannel(notificationChannel);
+        }
+    }
 
 }
