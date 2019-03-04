@@ -1,3 +1,6 @@
+## 如果此工程代码对您有帮助，请扫描以下二维码支持我！
+![在这里插入图片描述](https://raw.githubusercontent.com/xiaxveliang/GLES2_Anima_LoadFrom_Obj/master/image/pay_2rmb.png)
+
 csdn 原文地址：
 https://blog.csdn.net/xiaxl/article/details/78780691
 
